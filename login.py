@@ -12,6 +12,8 @@ username = s.getfirst("username")
 password = s.getfirst("password")
 
 c = SimpleCookie(os.environ["HTTP_COOKIE"])
+c_username = None
+c_password = None
 if c.get('username'):
 	c_username = c.get('username').value
 if c.get('password'):
@@ -27,7 +29,6 @@ if form_ok:
 	print("Set-Cookie: username=",username)
 	print("Set-Cookie: password=",password)
 print()
-#print(login_page())
 if not username and not password:
 	print(login_page())
 elif username == secret.username and password == secret.password:
