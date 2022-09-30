@@ -11,19 +11,11 @@ s = cgi.FieldStorage()
 username = s.getfirst("username")
 password = s.getfirst("password")
 
-
-print("Content-Type: text/html")
-c = os.environ.get("HTTP_COOKIE")
-
-cookie_pairs = c.split(";")
-for p in cookie_pairs:
-	key,value = p.split("=")
-	if k == "username":
-        c_username = value
-    elif k == "password":
-        c_password = value
-
-
+c = SimpleCookie(os.environ["HTTP_COOKIE"])
+if c.get('username'):
+	c_username = c.get('username').value
+if c.get('password'):
+	c_password = c.get('password').value
 
 cookie_ok = c_username == secret.username and c_password == secret.password
 if cookie_ok:
